@@ -1,0 +1,38 @@
+Історія запитів/команд, які я відправляв Agent / виконуючи в терміналі (хронологічно):
+
+1) Встановлення інструментів (winget):
+- winget install --id Kitware.CMake -e --accept-package-agreements --accept-source-agreements
+- winget install --id Microsoft.VisualStudio.2022.BuildTools -e --accept-package-agreements --accept-source-agreements --override "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --passive --norestart"
+
+2) Перевірка наявності інструментів:
+- cl
+- g++ --version
+- cmake --version (викликав явний шлях коли PATH не оновлено)
+
+3) CMake / Build / Test команди, які я запускав:
+- cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+- cmake --build build --config Release
+- cmd /c '"C:\...\VsDevCmd.bat" && cl /nologo /EHsc main.cpp /Fe:hello.exe && hello.exe'
+- cmd /c '"C:\...\VsDevCmd.bat" && cl /nologo /EHsc main.cpp /Fe:hello.exe > build_log.txt 2>&1 && if exist hello.exe (echo FOUND && hello.exe) else (type build_log.txt)'
+- "C:\Program Files\CMake\bin\cmake.exe" -S . -B build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
+- cmd /c '"C:\...\VsDevCmd.bat" && "C:\Program Files\CMake\bin\cmake.exe" -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release && "C:\Program Files\CMake\bin\cmake.exe" --build build --config Release'
+
+4) Команди для тестування/цілей:
+- cmake --build build --target unit_tests
+- ctest --test-dir build -C Debug --output-on-failure
+- cmake --build build --target run_tests --config Debug
+
+5) Робота з googletest / FetchContent (в CMakeLists.txt):
+- Виправив тег FetchContent з 'release-1.14.0' на 'v1.14.0'
+- Додав FetchContent_MakeAvailable(googletest) та перевірку наявності TARGET GTest::gtest і GTest::gtest_main
+
+6) Скрипти CI, локальні
+- Створено ci.sh (bash) для конфігурації, збірки та запуску тестів
+- Створено ci.bat (Windows batch) для тієї ж логіки
+
+7) Запуск і перевірка тестів у build:
+- & "C:\Program Files\CMake\bin\cmake.exe" -S . -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=Release
+- & "C:\Program Files\CMake\bin\cmake.exe" --build build --config Release --target unit_tests
+- cd build && "C:\Program Files\CMake\bin\ctest.exe" -C Release --output-on-failure -V
+
+Примітка: це короткий перелік основних запитів/команд, які були виконані під час роботи над проєктом для налаштування, побудови та тестування. Якщо хочете, можу додати більше деталей або повні логи команд.
