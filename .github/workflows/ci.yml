@@ -1,0 +1,24 @@
+name: CI Build
+
+on: [push, pull_request]
+
+jobs:
+  cross_build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Create Build Directory
+      run: mkdir build
+    - name: Configure CMake
+      shell: bash
+      run: cd build && cmake ..
+    - name: Build
+      shell: bash
+      run: cd build && cmake --build .
+    - name: Run Tests
+      shell: bash
+      run: cd build && ctest --output-on-failure
