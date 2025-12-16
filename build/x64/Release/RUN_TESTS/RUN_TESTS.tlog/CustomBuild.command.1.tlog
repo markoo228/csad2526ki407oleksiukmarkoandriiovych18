@@ -1,0 +1,10 @@
+^D:\CSAD2526KI407OLEKSIUKMARKOANDRIIOVYCH18\BUILD\CMAKEFILES\6FBEE2FE3F6BCE209639D3C9FB3281F1\RUN_TESTS_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
