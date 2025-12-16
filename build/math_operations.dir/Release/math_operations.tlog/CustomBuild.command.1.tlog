@@ -1,0 +1,10 @@
+^D:\CSAD2526KI407OLEKSIUKMARKOANDRIIOVYCH18\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/csad2526ki407oleksiukmarkoandriiovych18 -BD:/csad2526ki407oleksiukmarkoandriiovych18/build --check-stamp-file D:/csad2526ki407oleksiukmarkoandriiovych18/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
